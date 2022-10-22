@@ -5,16 +5,6 @@ function promedio($muestras)
     return array_sum($muestras) / count($muestras);
 }
 
-function maximo($muestras)
-{
-    return max($muestras);
-}
-
-function minimo($muestras)
-{
-    return min($muestras);
-}
-
 function evaluarRiesgo($riesgo)
 {
     switch ($riesgo) {
