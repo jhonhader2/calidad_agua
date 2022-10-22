@@ -1,5 +1,14 @@
 <?php
+include_once('conexion.php');
 include_once('funciones.php');
+
+$muesta1 = $_POST['muestra1'];
+$muesta2 = $_POST['muestra2'];
+$muesta3 = $_POST['muestra3'];
+$muesta4 = $_POST['muestra4'];
+
+$query = "INSERT INTO datos (muestra1,muestra2, muestra3, muestra4) VALUES($muesta1, $muesta2, $muesta3, $muesta4)";
+$result = mysqli_query($con, $query);
 
 $muestras       = (array_column($_POST, null));
 

@@ -1,6 +1,8 @@
 <?php
 
     require_once("conexion.php");
+    $query  = "SELECT * FROM datos";
+    $result = mysqli_query($con, $query);
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +21,6 @@
     <div class="container">
         <div class="row">
             <h2 class="pb-2 border-bottom">Lector del nivel de la calidad del agua en el Departamento del Guaviare.</h2>
-
         </div>
         <div class="row">
             <div class="col-5">
@@ -41,6 +42,7 @@
                 </div>
             </div>
             <div class="col-4">
+                <h4>Tabla de Clasificación</h4>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -73,6 +75,7 @@
                 </table>
             </div>
             <div class="col-3">
+                <h6>Ingrese los datos de las muestras...</h6>
                 <form action="agua.php" method="post">
                     <div class="mb-3">
                         <label for="muestra1" class="form-label">Primera Muestra</label>
@@ -94,6 +97,45 @@
                         <button type="submit" class="btn btn-sm btn-outline-primary">Enviar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <td>Toma #</td>
+                            <td>Fecha</td>
+                            <td>Muestra 1</td>
+                            <td>Muestra 2</td>
+                            <td>Muestra 3</td>
+                            <td>Muestra 4</td>
+                            <td colspan="2">Opciones</td>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <?php
+                            if (mysqli_num_rows($result) > 0) {
+                                $pos = 1;
+                                while($data = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <tr>
+                            <td><?php echo $pos; ?></td>
+                            <td><?php echo $data['fecha_muestra']; ?></td>
+                            <td><?php echo $data['muestra1']; ?></td>
+                            <td><?php echo $data['muestra2']; ?></td>
+                            <td><?php echo $data['muestra3']; ?></td>
+                            <td><?php echo $data['muestra4']; ?></td>
+                            <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning" >Actualizar</a></td>
+                            <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
+                        </tr>
+                        <?php   $pos++;}} else { ?>
+                            <tr>
+                                <td colspan="7">No hay datos</td>
+                            </tr>
+                        <?php } ?> 
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

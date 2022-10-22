@@ -5,10 +5,8 @@ $user       = "root";
 $password   = null;
 $database   = "calidad_agua";
 
-
 try {
-    mysqli_connect($hostname, $user, $password, $database);
-    echo "Hay Conexion";
+    $con = mysqli_connect($hostname, $user, $password, $database);
 } catch (\Throwable $e) {
     print $e->getMessage();
 }
