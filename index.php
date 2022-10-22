@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="mt-3">
     <div class="container">
         <div class="row">
             <h2 class="pb-2 border-bottom">Lector del nivel de la calidad del agua en el Departamento del Guaviare.</h2>
@@ -76,22 +76,22 @@
             </div>
             <div class="col-3">
                 <h6>Ingrese los datos de las muestras...</h6>
-                <form action="agua.php" method="post">
+                <form action="guardar.php" method="POST" autocomplete="off">
                     <div class="mb-3">
                         <label for="muestra1" class="form-label">Primera Muestra</label>
-                        <input type="number" class="form-control" name="muestra1" id="muestra1" required>
+                        <input type="number" class="form-control" name="muestra1" id="muestra1" min="1" max="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="muestra2" class="form-label">Segunda Muestra</label>
-                        <input type="number" class="form-control" name="muestra2" id="muestra2" required>
+                        <input type="number" class="form-control" name="muestra2" id="muestra2" min="1" max="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="muestra3" class="form-label">Tercera Muestra</label>
-                        <input type="number" class="form-control" name="muestra3" id="muestra3" required>
+                        <input type="number" class="form-control" name="muestra3" id="muestra3" min="1" max="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="muestra4" class="form-label">Cuarta Muestra</label>
-                        <input type="number" class="form-control" name="muestra4" id="muestra4" required>
+                        <input type="number" class="form-control" name="muestra4" id="muestra4" min="1" max="100" required>
                     </div>
                     <div class="col-12 mb-3">
                         <button type="submit" class="btn btn-sm btn-outline-primary">Enviar</button>
@@ -126,7 +126,7 @@
                             <td><?php echo $data['muestra2']; ?></td>
                             <td><?php echo $data['muestra3']; ?></td>
                             <td><?php echo $data['muestra4']; ?></td>
-                            <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning" >Actualizar</a></td>
+                            <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning" >Editar</a></td>
                             <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
                         </tr>
                         <?php   $pos++;}} else { ?>
