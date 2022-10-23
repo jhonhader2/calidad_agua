@@ -1,10 +1,10 @@
 <?php
 
-    require_once("conexion.php");
-    require_once("funciones.php");
-    
-    $query  = "SELECT * FROM datos";
-    $result = mysqli_query($con, $query);
+require_once("conexion.php");
+require_once("funciones.php");
+
+$query  = "SELECT * FROM datos";
+$result = mysqli_query($con, $query);
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +17,7 @@
     <title>Calidad de Agua</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="mt-3">
@@ -102,8 +103,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                <table class="table table-striped">
+            <!-- Tabla -->
+            <div class="col-8">
+                <h4>Registro Consolidado de Muestras</h4>
+                <table class="table table-striped table-sm">
                     <thead>
                         <tr class="text-center">
                             <td>Toma #</td>
@@ -119,35 +122,47 @@
                     </thead>
                     <tbody class="text-center">
                         <?php
-                            if (mysqli_num_rows($result) > 0) {
-                                $pos = 1;
-                                $promedio = 0;
-                                while($data = mysqli_fetch_assoc($result)) {
+                        if (mysqli_num_rows($result) > 0) {
+                            $pos        = 1;
+                            $promedio   = 0;
+                            $etiquetas  = [];
+                            $datos      = [];
 
-                                    $muestras = [$data['muestra1'] , $data['muestra2'] , $data['muestra3'] , $data['muestra4']];
-                                    $promedio = promedio($muestras);
-                                    $riesgo   = evaluarRiesgo($promedio)
+                            while ($data = mysqli_fetch_assoc($result)) {
+
+                                $muestras = [$data['muestra1'], $data['muestra2'], $data['muestra3'], $data['muestra4']];
+                                $promedio = promedio($muestras);
+                                $riesgo   = evaluarRiesgo($promedio);
+                                $fecha_muestra = date_format(date_create($data['fecha_muestra']), 'd-m-Y');
                         ?>
-                        <tr>
-                            <td><?php echo $pos; ?></td>
-                            <td><?php echo $data['fecha_muestra']; ?></td>
-                            <td><?php echo $data['muestra1']; ?></td>
-                            <td><?php echo $data['muestra2']; ?></td>
-                            <td><?php echo $data['muestra3']; ?></td>
-                            <td><?php echo $data['muestra4']; ?></td>
-                            <td><?php echo $promedio; ?></td>
-                            <td><?php echo $riesgo; ?></td>
-                            
-                            <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning" >Editar</a></td>
-                            <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
-                        </tr>
-                        <?php   $pos++;}} else { ?>
+                                <tr>
+                                    <td><?php echo $pos; ?></td>
+                                    <td><?php echo $fecha_muestra; ?></td>
+                                    <td><?php echo $data['muestra1']; ?></td>
+                                    <td><?php echo $data['muestra2']; ?></td>
+                                    <td><?php echo $data['muestra3']; ?></td>
+                                    <td><?php echo $data['muestra4']; ?></td>
+                                    <td><?php echo $promedio; ?></td>
+                                    <td><?php echo $riesgo; ?></td>
+
+                                    <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning">Editar</a></td>
+                                    <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
+                                </tr>
+                            <?php $pos++;
+                            }
+                        } else { ?>
                             <tr>
                                 <td colspan="9">No hay datos</td>
                             </tr>
-                        <?php } ?> 
+                        <?php } ?>
                     </tbody>
                 </table>
+            </div>
+            <!-- Gráfico -->
+            <div class="col">
+                <h4>Riesgo Promedio Acumulado</h4>
+                <canvas id="grafica" class="float"></canvas>
+                <script type="text/javascript" src="./js/script.js"></script>
             </div>
         </div>
     </div>
