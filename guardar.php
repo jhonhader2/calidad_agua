@@ -16,8 +16,6 @@ if (!isset($_POST['id'])) {
 
 $result = mysqli_query($con, $query);
 
-// $muestras       = (array_column($_POST, null));
-
 $muestras = [$_POST['muestra1'], $_POST['muestra2'], $_POST['muestra3'], $_POST['muestra4']];
 
 $promedio       = promedio($muestras);
