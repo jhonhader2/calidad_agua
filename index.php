@@ -1,6 +1,8 @@
 <?php
 
     require_once("conexion.php");
+    require_once("funciones.php");
+    
     $query  = "SELECT * FROM datos";
     $result = mysqli_query($con, $query);
 
@@ -110,6 +112,8 @@
                             <td>Muestra 2</td>
                             <td>Muestra 3</td>
                             <td>Muestra 4</td>
+                            <td>Nivel Promedio</td>
+                            <td>Riesgo Promedio</td>
                             <td colspan="2">Opciones</td>
                         </tr>
                     </thead>
@@ -117,7 +121,12 @@
                         <?php
                             if (mysqli_num_rows($result) > 0) {
                                 $pos = 1;
+                                $promedio = 0;
                                 while($data = mysqli_fetch_assoc($result)) {
+
+                                    $muestras = [$data['muestra1'] , $data['muestra2'] , $data['muestra3'] , $data['muestra4']];
+                                    $promedio = promedio($muestras);
+                                    $riesgo   = evaluarRiesgo($promedio)
                         ?>
                         <tr>
                             <td><?php echo $pos; ?></td>
@@ -126,12 +135,15 @@
                             <td><?php echo $data['muestra2']; ?></td>
                             <td><?php echo $data['muestra3']; ?></td>
                             <td><?php echo $data['muestra4']; ?></td>
+                            <td><?php echo $promedio; ?></td>
+                            <td><?php echo $riesgo; ?></td>
+                            
                             <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning" >Editar</a></td>
                             <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
                         </tr>
                         <?php   $pos++;}} else { ?>
                             <tr>
-                                <td colspan="7">No hay datos</td>
+                                <td colspan="9">No hay datos</td>
                             </tr>
                         <?php } ?> 
                     </tbody>
