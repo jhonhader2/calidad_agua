@@ -14,7 +14,7 @@ if (!isset($_POST['id'])) {
     $query = "UPDATE datos SET muestra1 = {$muesta1}, muestra2 = {$muesta2}, muestra3 = {$muesta3}, muestra4 = {$muesta4} WHERE id = {$_POST['id']}";
 }
 
-$result = mysqli_query($con, $query);
+$result = mysqli_query($con, $query) or die(mysqli_error($con));
 
 $muestras = [$_POST['muestra1'], $_POST['muestra2'], $_POST['muestra3'], $_POST['muestra4']];
 
