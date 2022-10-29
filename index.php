@@ -117,7 +117,7 @@ $result = mysqli_query($con, $query) or die(mysqli_error($con));
                             <td>Muestra 4</td>
                             <td>Nivel Promedio</td>
                             <td>Riesgo Promedio</td>
-                            <td colspan="2">Opciones</td>
+                            <td colspan="3">Opciones</td>
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -147,12 +147,13 @@ $result = mysqli_query($con, $query) or die(mysqli_error($con));
 
                                     <td><a href="editar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-warning">Editar</a></td>
                                     <td><a href="eliminar.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-danger" value="">Eliminar</a></td>
+                                    <td><a href="imprimirReporte.php?id=<?php echo $data['id']; ?>" class="btn btn-sm btn-outline-info" value="">Imprimir</a></td>
                                 </tr>
                             <?php $pos++;
                             }
                         } else { ?>
                             <tr>
-                                <td colspan="9">No hay datos</td>
+                                <td colspan="10">No hay datos</td>
                             </tr>
                         <?php } ?>
                     </tbody>
