@@ -3,8 +3,11 @@
     $id = $_GET['id'];
 
     $query  = "SELECT * FROM datos WHERE id = $id";
-    $result = mysqli_query($con, $query);
-    $data   = mysqli_fetch_assoc($result);
+    $result = mysqli_query($con, $query) or die(mysqli_error($con));
+
+    if ($result) {
+        $data   = mysqli_fetch_assoc($result);
+    }
 
     //Formatea la fecha cargada desde BD
     $fecha_muestra = date_format(date_create($data['fecha_muestra']),'Y-m-d');

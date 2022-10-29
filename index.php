@@ -4,7 +4,7 @@ require_once("conexion.php");
 require_once("funciones.php");
 
 $query  = "SELECT * FROM datos";
-$result = mysqli_query($con, $query);
+$result = mysqli_query($con, $query) or die(mysqli_error($con));
 
 ?>
 <!DOCTYPE html>
