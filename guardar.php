@@ -1,22 +1,23 @@
 <?php
 
-include_once('conexion.php');
-include_once('funciones.php');
+include_once 'conexion.php';
+include_once 'funciones.php';
 
-$muesta1 = $_POST['muestra1'];
-$muesta2 = $_POST['muestra2'];
-$muesta3 = $_POST['muestra3'];
-$muesta4 = $_POST['muestra4'];
+$muestra1 = isset($_POST['muestra1']) ? (float) $_POST['muestra1'] : 0;
+$muestra2 = isset($_POST['muestra2']) ? (float) $_POST['muestra2'] : 0;
+$muestra3 = isset($_POST['muestra3']) ? (float) $_POST['muestra3'] : 0;
+$muestra4 = isset($_POST['muestra4']) ? (float) $_POST['muestra4'] : 0;
 
-if (!isset($_POST['id'])) { 
-    $query = "INSERT INTO datos (muestra1,muestra2, muestra3, muestra4) VALUES($muesta1, $muesta2, $muesta3, $muesta4)";
+if (!isset($_POST['id'])) {
+    $query = "INSERT INTO datos (muestra1,muestra2, muestra3, muestra4) VALUES($muestra1, $muestra2, $muestra3, $muestra4)";
 } else {
-    $query = "UPDATE datos SET muestra1 = {$muesta1}, muestra2 = {$muesta2}, muestra3 = {$muesta3}, muestra4 = {$muesta4} WHERE id = {$_POST['id']}";
+    $id    = (int) $_POST['id'];
+    $query = "UPDATE datos SET muestra1 = {$muestra1}, muestra2 = {$muestra2}, muestra3 = {$muestra3}, muestra4 = {$muestra4} WHERE id = {$id}";
 }
 
 $result = mysqli_query($con, $query) or die(mysqli_error($con));
 
-$muestras = [$_POST['muestra1'], $_POST['muestra2'], $_POST['muestra3'], $_POST['muestra4']];
+$muestras = [$muestra1, $muestra2, $muestra3, $muestra4];
 
 $promedio       = promedio($muestras);
 $maximo         = max($muestras);

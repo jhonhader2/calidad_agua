@@ -7,24 +7,19 @@ function promedio($muestras)
 
 function evaluarRiesgo($riesgo)
 {
-    switch ($riesgo) {
-        case $riesgo > 0 && $riesgo <= 5:
-            return 'Sin Riesgo';
-            break;
-        case $riesgo > 5 && $riesgo <= 14:
-            return 'Bajo';
-            break;
-        case $riesgo > 14 && $riesgo <= 35:
-            return 'Medio';
-            break;
-        case $riesgo > 35 && $riesgo <= 80:
-            return 'Alto';
-            break;
-        case $riesgo > 80 && $riesgo <= 100:
-            return 'Inviable Sanitariamente';
-            break;
-        default:
-            return 'No ha ingresado valores';
-            break;
+    $resultado = 'No ha ingresado valores';
+
+    if ($riesgo > 0 && $riesgo <= 5) {
+        $resultado = 'Sin Riesgo';
+    } elseif ($riesgo > 5 && $riesgo <= 14) {
+        $resultado = 'Bajo';
+    } elseif ($riesgo > 14 && $riesgo <= 35) {
+        $resultado = 'Medio';
+    } elseif ($riesgo > 35 && $riesgo <= 80) {
+        $resultado = 'Alto';
+    } elseif ($riesgo > 80 && $riesgo <= 100) {
+        $resultado = 'Inviable Sanitariamente';
     }
+
+    return $resultado;
 }

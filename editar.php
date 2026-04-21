@@ -1,6 +1,6 @@
 <?php
-    include_once('conexion.php');
-    $id = $_GET['id'];
+    include_once 'conexion.php';
+    $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
     $query  = "SELECT * FROM datos WHERE id = $id";
     $result = mysqli_query($con, $query) or die(mysqli_error($con));

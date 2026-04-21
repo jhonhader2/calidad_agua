@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "-05:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- Base de datos: `calidad_agua`
 --
 
+CREATE DATABASE IF NOT EXISTS `calidad_agua`
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_spanish2_ci;
+USE `calidad_agua`;
+
 -- --------------------------------------------------------
 
 --
@@ -28,7 +33,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `datos` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `muestra1` double NOT NULL DEFAULT 0,
   `muestra2` double NOT NULL DEFAULT 0,
   `muestra3` double NOT NULL DEFAULT 0,
@@ -54,7 +59,7 @@ ALTER TABLE `datos`
 -- AUTO_INCREMENT de la tabla `datos`
 --
 ALTER TABLE `datos`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
